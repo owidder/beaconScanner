@@ -6,7 +6,7 @@ var scanner = require('./scan.js');
 var port = process.env.PORT || 8080;
 
 router.get('/scan', function(req, res) {
-    res.json(scanner.signal);
+    res.json(scanner.beacons);
 });
 
 app.use('/scanner', router);

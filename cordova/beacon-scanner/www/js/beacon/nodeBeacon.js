@@ -1,7 +1,7 @@
-de_iteratec_beacon.NodeBeacon = function(aHttp, aCallback, aInterval) {
-    var http = aHttp;
+de_iteratec_beacon.NodeBeacon = function(aCallback, aInterval, aHttp) {
     var callback = aCallback;
     var interval = aInterval;
+    var http = aHttp;
 
     var updateTimer;
 
@@ -11,6 +11,6 @@ de_iteratec_beacon.NodeBeacon = function(aHttp, aCallback, aInterval) {
     updateTimer = setInterval(function() {
         http.get(URL).success(function(data) {
             callback(data);
-        });
+        }, interval);
     });
 };

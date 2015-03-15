@@ -1,16 +1,11 @@
 // Requires NodeJS and "noble" module: https://github.com/sandeepmistry/noble
 // Based on: https://github.com/sandeepmistry/noble/issues/62
- 
 var noble = require('noble');
+var util = require('./util.js');
 
 var beacons = {};
 
-var signal = {
-    rssi: 0,
-    uuid: '-'
-};
-
-exports.signal = signal;
+exports.beacons = beacons;
 
 noble.on('stateChange', function(state) {
 	if (state === 'poweredOn' ) {
@@ -30,9 +25,12 @@ noble.on('discover', function(peripheral) {
 
         console.log("rssi = " + rssi);
 
-
-        signal.rssi = rssi;
-        signal.uuid = peripheral.uuid;
+        if(!util.isSet(beacons[uuid])) {
+            beacons[uuid] = {
+                uuid: uuid
+            };
+            beacons[uuid].rssi = rssi;
+        }
 	});
  
 	setInterval(function(){

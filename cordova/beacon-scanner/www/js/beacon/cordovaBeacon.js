@@ -2,9 +2,6 @@ de_iteratec_beacon.CordovaBeacon = function(aCallback, aInterval) {
     var callback = aCallback;
     var interval = aInterval;
 
-    // Application object.
-    var beacons = {};
-
     // Specify your beacon 128bit UUIDs here.
     var regions = [
             {uuid:'20CAE8A0-A9CF-11E3-A5E2-0800200C9A66'}
@@ -16,7 +13,7 @@ de_iteratec_beacon.CordovaBeacon = function(aCallback, aInterval) {
     // Timer that displays list of beacons.
     var updateTimer = null;
 
-    beacons.initialize = function() {
+    function initialize() {
         document.addEventListener('deviceready', onDeviceReady, false);
     };
 
@@ -92,5 +89,5 @@ de_iteratec_beacon.CordovaBeacon = function(aCallback, aInterval) {
         return beacons;
     };
 
-    beacons.initialize();
+    initialize();
 };
