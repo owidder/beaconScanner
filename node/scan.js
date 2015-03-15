@@ -2,6 +2,16 @@
 // Based on: https://github.com/sandeepmistry/noble/issues/62
  
 var noble = require('noble');
+
+var beacons = {};
+
+var signal = {
+    rssi: 0,
+    uuid: '-'
+};
+
+exports.signal = signal;
+
 noble.on('stateChange', function(state) {
 	if (state === 'poweredOn' ) {
 		noble.startScanning([], false);
@@ -16,7 +26,13 @@ noble.on('discover', function(peripheral) {
 	peripheral.on('connect',function(){}); 
  
 	peripheral.on('rssiUpdate',function(rssi){
-		console.log({"uuid": peripheral.uuid, "rssi": peripheral.rssi });
+        var uuid = peripheral.uuid;
+
+        console.log("rssi = " + rssi);
+
+
+        signal.rssi = rssi;
+        signal.uuid = peripheral.uuid;
 	});
  
 	setInterval(function(){

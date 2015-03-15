@@ -4,6 +4,7 @@
   "description": "",
   "main": "scan.js",
   "dependencies": {
+    "express": "^4.12.2",
     "noble": "^0.3.9"
   },
   "devDependencies": {},
