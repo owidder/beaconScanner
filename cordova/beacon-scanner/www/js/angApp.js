@@ -1,7 +1,5 @@
 'use strict';
 
-var de_iteratec_beacon = de_iteratec_beacon || {};
-
 de_iteratec_beacon.beaconScanner = (function() {
 
     var beaconScanner = angular.module('beaconScanner', [
@@ -10,7 +8,7 @@ de_iteratec_beacon.beaconScanner = (function() {
 
     beaconScanner.config(function($routeProvider) {
         $routeProvider.when('/list', {
-                templateUrl: 'partials/list',
+                templateUrl: 'ui/partials/list.html',
                 controller: 'ListController'
             }
         ).

@@ -1,4 +1,4 @@
-de_iteratec_beacon.CordovaBeacon = function(aCallback, aInterval) {
+de_iteratec_beacon.CordovaBeaconApi = function(aCallback, aInterval) {
     var callback = aCallback;
     var interval = aInterval;
 

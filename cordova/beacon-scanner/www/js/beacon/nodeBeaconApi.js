@@ -1,4 +1,4 @@
-de_iteratec_beacon.NodeBeacon = function(aCallback, aInterval, aHttp) {
+de_iteratec_beacon.NodeBeaconApi = function(aCallback, aInterval, aHttp) {
     var callback = aCallback;
     var interval = aInterval;
     var http = aHttp;
