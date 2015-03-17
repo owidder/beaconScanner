@@ -3,7 +3,7 @@
         <li ng-repeat="(uuid, beacon) in beacons">
             <strong>UUID:  {{beacon.uuid}}</strong><br/>
             RSSI: {{beacon.rssi}}<br/>
-            <div style="background:rgb(255,128,64);height:20px;width:{{rssiWidth}}%;"></div>
+            <div style="background:rgb(255,128,64);height:20px;width:{{beacon.rssiWidth}}%;"></div>
         </li>
     </ul>
 </section>

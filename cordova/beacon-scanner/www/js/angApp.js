@@ -7,19 +7,19 @@ de_iteratec_beacon.beaconScanner = (function() {
     ]);
 
     beaconScanner.config(function($routeProvider) {
-        $routeProvider.when('/list', {
+        $routeProvider
+            .when('/list', {
                 templateUrl: 'ui/partials/list.html',
                 controller: 'ListController'
-            }
-        ).
-        otherwise({
+            })
+            .when('/bubbles', {
+                templateUrl: 'ui/partials/bubbles.html',
+                controller: 'ListController'
+            })
+            .otherwise({
                 redirectTo: '/list'
             }
         );
-    });
-
-    beaconScanner.factory('_d3', function() {
-        return d3;
     });
 
     return beaconScanner;

@@ -11,6 +11,6 @@ de_iteratec_beacon.NodeBeaconApi = function(aCallback, aInterval, aHttp) {
     updateTimer = setInterval(function() {
         http.get(URL).success(function(data) {
             callback(data);
-        }, interval);
-    });
+        });
+    }, interval);
 };

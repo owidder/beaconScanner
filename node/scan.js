@@ -1,39 +1,70 @@
 // Requires NodeJS and "noble" module: https://github.com/sandeepmistry/noble
 // Based on: https://github.com/sandeepmistry/noble/issues/62
-var noble = require('noble');
 var util = require('./util.js');
 
 var beacons = {};
 
-exports.beacons = beacons;
+exports.startFake = function(interval) {
 
-noble.on('stateChange', function(state) {
-	if (state === 'poweredOn' ) {
-		noble.startScanning([], false);
-	} else {
-		noble.stopScanning();
-	}
-});
- 
-noble.on('discover', function(peripheral) {
-	peripheral.connect(function(error) {});
- 
-	peripheral.on('connect',function(){}); 
- 
-	peripheral.on('rssiUpdate',function(rssi){
-        var uuid = peripheral.uuid;
+    setInterval(function() {
+        var randomNumberOfBeacons, i, beacon, uuid, rssi, rndOffset;
 
-        console.log("rssi = " + rssi);
-
-        if(!util.isSet(beacons[uuid])) {
-            beacons[uuid] = {
-                uuid: uuid
-            };
-            beacons[uuid].rssi = rssi;
+        if(Object.keys(beacons).length > 0) {
+            util.forEachKeyAndVal(beacons, function(id, beacon) {
+                rndOffset = util.randomNumberBetweenLowerAndUpper(-20, +20)
+                beacon.rssi += rndOffset;
+                if(beacon.rssi > 0 || beacon.rssi < -100) {
+                    rssi = util.randomNumberBetweenLowerAndUpper(-100, -10);
+                }
+            });
         }
-	});
- 
-	setInterval(function(){
-  		peripheral.updateRssi();
-	}, 100);
-});
+        else {
+            randomNumberOfBeacons = util.randomNumberBetweenLowerAndUpper(1, 10);
+            for(i = 0; i < randomNumberOfBeacons; i++) {
+                beacon = {};
+                uuid = util.guid();
+                rssi = util.randomNumberBetweenLowerAndUpper(-100, -10);
+                beacon.uuid = uuid;
+                beacon.rssi = rssi;
+                beacons[uuid] = beacon;
+            }
+        }
+    }, interval);
+};
+
+exports.startScan = function(interval) {
+    var noble = require('noble');
+
+    noble.on('stateChange', function(state) {
+        if (state === 'poweredOn' ) {
+            noble.startScanning([], false);
+        } else {
+            noble.stopScanning();
+        }
+    });
+
+    noble.on('discover', function(peripheral) {
+        peripheral.connect(function(error) {});
+
+        peripheral.on('connect',function(){});
+
+        peripheral.on('rssiUpdate',function(rssi){
+            var uuid = peripheral.uuid;
+
+            console.log(uuid + " : " + rssi);
+
+            if(!util.isSet(beacons[uuid])) {
+                beacons[uuid] = {
+                    uuid: uuid
+                };
+            }
+            beacons[uuid].rssi = rssi;
+        });
+
+        setInterval(function(){
+            peripheral.updateRssi();
+        }, interval);
+    });
+};
+
+exports.beacons = beacons;

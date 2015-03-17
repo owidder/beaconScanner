@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>iBeacon Scan</title>
+	<title>Beacon Scanner</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -37,22 +37,12 @@
 
 	<script src="js/angApp.js"></script>
     <script src="js/controller/listController.js"></script>
+    <script src="js/directive/beaconBubbles.js"></script>
 
 </head>
 
 <body>
-
-	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
-
-		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
-
-		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
-	</header>
-
-	<h1>iBeacon Scan</h1>
+    <h1>Beacon Scanner</h1>
     <div ng-view></div>
 </body>
 

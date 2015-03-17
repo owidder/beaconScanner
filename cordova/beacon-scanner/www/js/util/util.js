@@ -22,12 +22,26 @@ de_iteratec_beacon.util = (function() {
         return (document.URL.indexOf( 'http://' ) === -1) && (document.URL.indexOf( 'https://' ) === -1);
     }
 
+    function randomNumberBetweenLowerAndUpper(lower, upper) {
+        return Math.floor(Math.random() * (upper - lower)) + lower;
+    }
+
+    function forEachKeyAndVal(v, fkt) {
+        var i;
+        for(i in v) {
+            if(v.hasOwnProperty(i)) {
+                fkt(i, v[i]);
+            }
+        }
+    }
 
     return {
         isDefined: isDefined,
         isSet: isSet,
         isEmpty: isEmpty,
-        isOnPhone: isOnPhone
+        isOnPhone: isOnPhone,
+        randomNumberBetweenLowerAndUpper: randomNumberBetweenLowerAndUpper,
+        forEachKeyAndVal: forEachKeyAndVal
     };
 
 })();
