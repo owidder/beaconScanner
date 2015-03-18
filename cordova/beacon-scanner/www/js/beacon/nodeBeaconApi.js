@@ -5,7 +5,7 @@ de_iteratec_beacon.NodeBeaconApi = function(aCallback, aInterval, aHttp) {
 
     var updateTimer;
 
-    var PORT = 8080;
+    var PORT = 18080;
     var URL = 'http://localhost:' + PORT + '/scanner/scan';
 
     updateTimer = setInterval(function() {

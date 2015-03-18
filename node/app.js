@@ -5,7 +5,7 @@ var app = express();
 var router = express.Router();
 var scanner = require('./scan.js');
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 18080;
 
 if(process.argv[2] == '--fake') {
     scanner.startFake(2000);
