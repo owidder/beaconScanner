@@ -19,12 +19,17 @@ exports.startFake = function(interval) {
             });
         }
         else {
+            proximityValues = ["ProximityImmediate","ProximityNear","ProximityFar"];
             randomNumberOfBeacons = util.randomNumberBetweenLowerAndUpper(5, 10);
             for(i = 0; i < randomNumberOfBeacons; i++) {
                 beacon = {};
                 uuid = util.guid();
                 rssi = util.randomNumberBetweenLowerAndUpper(-100, -10);
-                beacon.uuid = uuid;
+                beacon.uuid = '20CAE8A0-A9CF-11E3-A5E2-0800200C9A66';
+                beacon.major = 125+i;
+                beacon.minor = 18969+i;
+                beacon.accuracy = '1.1';
+                beacon.proximity = proximityValues[i%3];
                 beacon.rssi = rssi;
                 beacons[uuid] = beacon;
             }
