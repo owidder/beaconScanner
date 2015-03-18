@@ -15,7 +15,8 @@ de_iteratec_beacon.beaconServer = (function() {
             if (util.isDefined(restResponse.length) && (restResponse.length == 1) && (util.isDefined(restResponse[0].displayName))) {
                 beacon.displayName = restResponse[0].displayName;
             } else {
-                beacon.displayName = 'unknown/'+beacon.major+'/'+beacon.minor;
+                var shortUuid = beacon.uuid.substring(0, 4);
+                beacon.displayName = shortUuid+'/'+beacon.major+'/'+beacon.minor;
             }
         });
         restPromise.error(function() {
