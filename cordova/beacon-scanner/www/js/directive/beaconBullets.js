@@ -69,7 +69,7 @@ de_iteratec_beacon.beaconScanner.listController.directive('beaconBullets', funct
                     markers: [smoothedMeasure],
                     ranges: [lastMeasure, 100],
                     measures: [measure],
-                    title: shortUuid + " / " + beacon.major + " / " + beacon.minor,
+                    title: util.isDefined(beacon.displayName) ? beacon.displayName : shortUuid + " / " + beacon.major + " / " + beacon.minor,
                     subtitle: proximity + " (" + beacon.rssi + ", " + beacon.accuracy + ", " + secSinceLastMeasure + "s)"
                 };
 
