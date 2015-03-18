@@ -10,14 +10,18 @@ de_iteratec_beacon.beaconScanner = (function() {
         $routeProvider
             .when('/list', {
                 templateUrl: 'ui/partials/list.html',
-                controller: 'ListController'
+                controller: 'ScannerController'
             })
             .when('/bubbles', {
                 templateUrl: 'ui/partials/bubbles.html',
-                controller: 'ListController'
+                controller: 'ScannerController'
+            })
+            .when('/bullets', {
+                templateUrl: 'ui/partials/bullets.html',
+                controller: 'ScannerController'
             })
             .otherwise({
-                redirectTo: '/list'
+                redirectTo: '/bullets'
             }
         );
     });

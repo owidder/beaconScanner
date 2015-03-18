@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="beaconScanner">
 
 <head>
 
@@ -7,11 +7,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>iBeacon Scan</title>
-
-	<style>
-		@import 'ui/css/evothings-app.css';
-	</style>
+	<title>Beacon Scanner</title>
 
 	<script>
 	// Redirect console.log to Evothings Workbench.
@@ -20,29 +16,35 @@
 
 	<script src="cordova.js"></script>
 	<script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
 	<script src="lib/evothings/evothings.js"></script>
-	<script src="app.js"></script>
+
+    <script>
+        var de_iteratec_beacon = de_iteratec_beacon || {};
+    </script>
+
+    <script src="js/d3/bullet.js"></script>
+
+    <script src="js/util/util.js"></script>
+
+    <script src="js/beacon/cordovaBeaconApi.js"></script>
+    <script src="js/beacon/nodeBeaconApi.js"></script>
+    <script src="js/beacon/beaconApi.js"></script>
+
+	<script src="js/app.js"></script>
+    <script src="js/controller/scannerController.js"></script>
+    <script src="js/directive/beaconBubbles.js"></script>
+    <script src="js/directive/beaconBullets.js"></script>
 
 </head>
 
 <body>
-
-	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
-
-		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
-
-		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
-	</header>
-
-	<h1>iBeacon Scan</h1>
-	<p id="warning">To detect iBeacons you will have to add the 128bit UUID's you
-	are looking for to the regions array in app.js of the iBeacon example.
-	</p>
-	<ul id="found-beacons" class="dynamic"></ul>
-
+    <a href="#/list">list</a>
+    <a href="#/bubbles">bubbles</a>
+    <a href="#/bullets">bullets</a>
+    <div ng-view></div>
 </body>
 
 </html>

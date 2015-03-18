@@ -35,13 +35,34 @@ de_iteratec_beacon.util = (function() {
         }
     }
 
+    function transform(fromVal, fromMin, fromMax, toMin, toMax) {
+        var fromSpan = fromMax - fromMin;
+        var fromOffset = fromVal - fromMin;
+        var fromRel = (fromVal < fromMin || fromVal > fromMax) ? 0 : fromOffset / fromSpan;
+
+        var toSpan = toMax - toMin;
+        var toOffset = toSpan * fromRel;
+        var toVal = toMax + toOffset;
+
+        return toOffset;
+    }
+
+    function clearSvg() {
+        var svg = d3.selectAll("svg");
+        if(!svg.empty()) {
+            svg.remove();
+        }
+    }
+
     return {
         isDefined: isDefined,
         isSet: isSet,
         isEmpty: isEmpty,
         isOnPhone: isOnPhone,
         randomNumberBetweenLowerAndUpper: randomNumberBetweenLowerAndUpper,
-        forEachKeyAndVal: forEachKeyAndVal
+        forEachKeyAndVal: forEachKeyAndVal,
+        transform: transform,
+        clearSvg: clearSvg
     };
 
 })();

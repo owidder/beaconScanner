@@ -4,7 +4,8 @@ de_iteratec_beacon.CordovaBeaconApi = function(aCallback, aInterval) {
 
     // Specify your beacon 128bit UUIDs here.
     var regions = [
-            {uuid:'20CAE8A0-A9CF-11E3-A5E2-0800200C9A66'}
+            {uuid:'20CAE8A0-A9CF-11E3-A5E2-0800200C9A66'},
+            {uuid: 'F7826DA6-4FA2-4E98-8024-BC5B71E0893E'}
         ];
 
     // Dictionary of beacons.
@@ -15,7 +16,7 @@ de_iteratec_beacon.CordovaBeaconApi = function(aCallback, aInterval) {
 
     function initialize() {
         document.addEventListener('deviceready', onDeviceReady, false);
-    };
+    }
 
     function onDeviceReady() {
         // Specify a shortcut for the location manager holding the iBeacon functions.
@@ -25,7 +26,9 @@ de_iteratec_beacon.CordovaBeaconApi = function(aCallback, aInterval) {
         startScan();
 
         // Display refresh timer.
-        updateTimer = setInterval(callback, interval);
+        updateTimer = setInterval(function() {
+            callback(beacons);
+        }, interval);
     }
 
     function startScan() {
@@ -34,8 +37,7 @@ de_iteratec_beacon.CordovaBeaconApi = function(aCallback, aInterval) {
         var delegate = new locationManager.Delegate();
 
         // Called continuously when ranging beacons.
-        delegate.didRangeBeaconsInRegion = function(pluginResult)
-        {
+        delegate.didRangeBeaconsInRegion = function(pluginResult) {
             //console.log('didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult))
             for (var i in pluginResult.beacons)
             {

@@ -14,7 +14,7 @@ exports.startFake = function(interval) {
                 rndOffset = util.randomNumberBetweenLowerAndUpper(-20, +20)
                 beacon.rssi += rndOffset;
                 if(beacon.rssi > 0 || beacon.rssi < -100) {
-                    rssi = util.randomNumberBetweenLowerAndUpper(-100, -10);
+                    beacon.rssi = util.randomNumberBetweenLowerAndUpper(-100, -10);
                 }
             });
         }

@@ -15,9 +15,13 @@ de_iteratec_beacon.BeaconApi = function(aCallback, aInterval, type, aHttp) {
     var beacon;
 
     if(type == BeaconTypes.NODE) {
-        beacon = new NodeBeaconApi(callback, interval, http);
+        beacon = new NodeBeaconApi(function(beacons) {
+            callback(beacons);
+        }, interval, http);
     }
     else {
-        beacon = CordovaBeaconApi(callback, interval, http);
+        beacon = CordovaBeaconApi(function(beacons) {
+            callback(beacons);
+        }, interval, http);
     }
 };

@@ -5,9 +5,9 @@ de_iteratec_beacon.beaconScanner.listController = (function() {
     var BeaconApi = de_iteratec_beacon.BeaconApi;
     var BeaconTypes = de_iteratec_beacon.BeaconTypes;
 
-    var INTERVAL = 2000;
+    var INTERVAL = 1000;
 
-    var listController = de_iteratec_beacon.beaconScanner.controller('ListController', function($scope, $http) {
+    var scannerController = de_iteratec_beacon.beaconScanner.controller('ScannerController', function($scope, $http) {
         var beaconApi;
 
 
@@ -15,8 +15,7 @@ de_iteratec_beacon.beaconScanner.listController = (function() {
             var beaconId, beacon;
 
             for(beaconId in beacons) {
-                if(beacons.hasOwnProperty(beaconId)) {
-                    beacon = beacons[beaconId];
+                util.forEachKeyAndVal(beacons, function(uuid, beacon) {
                     beacon.rssiWidth = 1; // Used when RSSI is zero or greater.
                     if (beacon.rssi < -100) {
                         beacon.rssiWidth = 100;
@@ -24,18 +23,18 @@ de_iteratec_beacon.beaconScanner.listController = (function() {
                     else if (beacon.rssi < 0) {
                         beacon.rssiWidth = 100 + beacon.rssi;
                     }
-                }
+                });
             }
             $scope.beacons = beacons;
         }
 
         if(util.isOnPhone()) {
-            beaconApi = new BeaconApi(newBeaconData, INTERVAL, BeaconTypes.NODE, $http);
+            beaconApi = new BeaconApi(newBeaconData, INTERVAL, BeaconTypes.CORDOVA, $http);
         }
         else {
             beaconApi = new BeaconApi(newBeaconData, INTERVAL, BeaconTypes.NODE, $http);
         }
     });
 
-    return listController;
+    return scannerController;
 })();

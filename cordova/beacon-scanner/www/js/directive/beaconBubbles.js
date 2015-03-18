@@ -4,6 +4,8 @@ de_iteratec_beacon.beaconScanner.listController.directive('beaconBubbles', funct
     var util = de_iteratec_beacon.util;
 
     function drawGraph(scope, element, attr) {
+        util.clearSvg();
+
         function createD3BubbleDataFromBeacons(beacons) {
             var d3Data = {
                 children: []
