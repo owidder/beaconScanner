@@ -19,7 +19,8 @@ de_iteratec_beacon.util = (function() {
      * @return boolean true: if we're running on a phone, false: we're running in a desktop browser
      */
     function isOnPhone() {
-        return (document.URL.indexOf( 'http://' ) === -1) && (document.URL.indexOf( 'https://' ) === -1);
+        return true;
+        // return (document.URL.indexOf( 'http://' ) === -1) && (document.URL.indexOf( 'https://' ) === -1);
     }
 
     function randomNumberBetweenLowerAndUpper(lower, upper) {
