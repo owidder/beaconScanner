@@ -2,6 +2,7 @@
 
 de_iteratec_beacon.beaconScanner.listController = (function() {
     var util = de_iteratec_beacon.util;
+    var beaconServer = de_iteratec_beacon.beaconServer;
     var BeaconApi = de_iteratec_beacon.BeaconApi;
     var BeaconTypes = de_iteratec_beacon.BeaconTypes;
 
@@ -16,12 +17,8 @@ de_iteratec_beacon.beaconScanner.listController = (function() {
 
             for(beaconId in beacons) {
                 util.forEachKeyAndVal(beacons, function(uuid, beacon) {
-                    beacon.rssiWidth = 1; // Used when RSSI is zero or greater.
-                    if (beacon.rssi < -100) {
-                        beacon.rssiWidth = 100;
-                    }
-                    else if (beacon.rssi < 0) {
-                        beacon.rssiWidth = 100 + beacon.rssi;
+                    if (util.isEmpty(beacon.displayName)) {
+                        beacon.displayName = beaconServer.getBeaconName(beacon, $http)
                     }
                 });
             }
