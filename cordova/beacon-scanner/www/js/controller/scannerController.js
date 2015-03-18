@@ -18,7 +18,7 @@ de_iteratec_beacon.beaconScanner.listController = (function() {
             for(beaconId in beacons) {
                 util.forEachKeyAndVal(beacons, function(uuid, beacon) {
                     if (util.isEmpty(beacon.displayName)) {
-                        beacon.displayName = beaconServer.getBeaconName(beacon, $http)
+                        beaconServer.getBeaconName(beacon, $http)
                     }
                 });
             }
