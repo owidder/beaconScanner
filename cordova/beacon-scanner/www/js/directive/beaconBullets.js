@@ -79,68 +79,86 @@ de_iteratec_beacon.beaconScanner.listController.directive('beaconBullets', funct
             return bulletList;
         }
 
+        function createFakeBeacons() {
+            var beacon = {
+                uuid: "1337",
+                major: "iCanHas",
+                minor: "beacons",
+                rssi: util.randomNumberBetweenLowerAndUpper(-100, -10),
+                accuracy: 0.0,
+                timeStamp: Date.now()
+            }
+
+            return {
+                '1337': beacon
+            };
+        }
+
         setInterval(function() {
             var beacons = scope.beacons;
-            if(util.isSet(beacons)) {
-                var beaconBulletData = createD3BulletDataFromBeacons(beacons);
 
-                var margin = {top: 5, right: 40, bottom: 20, left: 120},
-                    width = $(window).width() - margin.left - margin.right,
-                    height = 50;
-
-                var chart = d3.bullet()
-                    .width(width)
-                    .height(height);
-
-                var node = d3.select("body").selectAll("svg")
-                    .data(beaconBulletData);
-
-                var nodeEnter = node
-                    .enter()
-                    .append("svg")
-                    .attr("class", "bullet")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom);
-
-                var c = nodeEnter.append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-                    .call(chart);
-
-                node.select("g")
-                    .transition()
-                    .call(chart.duration(1000));
-
-                var title = c.append("g")
-                    .style("text-anchor", "end")
-                    .attr("transform", "translate(-6," + height / 2 + ")");
-
-
-                title.append("text")
-                    .attr("class", "title")
-                    .text(function(d) {
-                        return d.title;
-                    });
-
-                title.append("text")
-                    .attr("class", "subtitle")
-                    .attr("dy", "1em")
-                    .text(function(d) { return d.subtitle; });
-
-                node.select("g")
-                    .transition()
-                    .call(chart.duration(500));
-
-                node.select(".title")
-                    .transition()
-                    .text(function(d) {return d.title});
-
-                node.select(".subtitle")
-                    .transition()
-                    .text(function(d) {return d.subtitle});
-
-                node.exit().remove();
-
+            if(!util.isSet(beacons) || Object.keys(beacons).length == 0) {
+                beacons = createFakeBeacons();
             }
+
+            var beaconBulletData = createD3BulletDataFromBeacons(beacons);
+
+            var margin = {top: 5, right: 40, bottom: 20, left: 120},
+                width = $(window).width() - margin.left - margin.right,
+                height = 50;
+
+            var chart = d3.bullet()
+                .width(width)
+                .height(height);
+
+            var node = d3.select("body").selectAll("svg")
+                .data(beaconBulletData);
+
+            var nodeEnter = node
+                .enter()
+                .append("svg")
+                .attr("class", "bullet")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom);
+
+            var c = nodeEnter.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                .call(chart);
+
+            node.select("g")
+                .transition()
+                .call(chart.duration(1000));
+
+            var title = c.append("g")
+                .style("text-anchor", "end")
+                .attr("transform", "translate(-6," + height / 2 + ")");
+
+
+            title.append("text")
+                .attr("class", "title")
+                .text(function(d) {
+                    return d.title;
+                });
+
+            title.append("text")
+                .attr("class", "subtitle")
+                .attr("dy", "1em")
+                .text(function(d) { return d.subtitle; });
+
+            node.select("g")
+                .transition()
+                .call(chart.duration(500));
+
+            node.select(".title")
+                .transition()
+                .text(function(d) {return d.title});
+
+            node.select(".subtitle")
+                .transition()
+                .text(function(d) {return d.subtitle});
+
+            node.exit().remove();
+
 
         }, 1000);
     }
