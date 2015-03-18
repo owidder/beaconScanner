@@ -19,7 +19,7 @@ exports.startFake = function(interval) {
             });
         }
         else {
-            randomNumberOfBeacons = util.randomNumberBetweenLowerAndUpper(1, 10);
+            randomNumberOfBeacons = util.randomNumberBetweenLowerAndUpper(5, 10);
             for(i = 0; i < randomNumberOfBeacons; i++) {
                 beacon = {};
                 uuid = util.guid();

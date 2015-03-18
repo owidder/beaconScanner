@@ -17,9 +17,9 @@
         // For each small multiple…
         function bullet(g) {
             g.each(function(d, i) {
-                var rangez = ranges.call(this, d, i).slice().sort(d3.descending),
-                    markerz = markers.call(this, d, i).slice().sort(d3.descending),
-                    measurez = measures.call(this, d, i).slice().sort(d3.descending),
+                var rangez = ranges.call(this, d, i).slice().sort(d3.descending);
+                var markerz = markers.call(this, d, i).slice().sort(d3.descending);
+                var measurez = measures.call(this, d, i).slice().sort(d3.descending);
                     g = d3.select(this);
 
                 // Compute the new x-scale.
@@ -64,7 +64,9 @@
                     .data(measurez);
 
                 measure.enter().append("rect")
-                    .attr("class", function(d, i) { return "measure s" + i; })
+                    .attr("class", function(d, i) {
+                        return "measure s" + i;
+                    })
                     .attr("width", w0)
                     .attr("height", height / 3)
                     .attr("x", reverse ? x0 : 0)
