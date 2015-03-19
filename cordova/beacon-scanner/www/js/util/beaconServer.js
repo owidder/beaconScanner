@@ -7,14 +7,14 @@ de_iteratec_beacon.beaconServer = (function() {
     var BASE_URL = 'http://iterabeacon.hh.iteratec.de:8080/beaconServer/api';
     var beacons = {};
 
-    function retrieveBeaconNameFromServer(beacon, http) {
+    function retrieveBeaconInfoFromServer(beacon, http) {
         var url = BASE_URL + '/beaconDevice?filter.uuid=' + beacon.uuid +
                                 '&filter.major=' + beacon.major +
                                 '&filter.minor=' + beacon.minor;
         var restPromise = http.get(url)
         restPromise.success(function(restResponse) {
             if (util.isDefined(restResponse.length) && (restResponse.length == 1) && (util.isDefined(restResponse[0].displayName))) {
-                beacons[getDefaultBeaconName(beacon)] = restResponse[0].displayName;
+                beacons[getDefaultBeaconName(beacon)] = restResponse[0];
             }
         });
         restPromise.error(function() {
@@ -27,18 +27,18 @@ de_iteratec_beacon.beaconServer = (function() {
         return shortUuid+'/'+beacon.major+'/'+beacon.minor;
     }
 
-    function getBeaconName(beacon, http) {
+    function getBeaconInfo(beacon, http) {
         var defaultBeaconName = getDefaultBeaconName(beacon);
         if (util.isDefined(beacons[defaultBeaconName])) {
-            beacon.displayName = beacons[defaultBeaconName];
+            beacon.displayName = beacons[defaultBeaconName].displayName;
         } else {
-            retrieveBeaconNameFromServer(beacon, http);
+            retrieveBeaconInfoFromServer(beacon, http);
             //return defaultBeaconName
         }
     }
 
     return {
-        getBeaconName: getBeaconName
+        getBeaconName: getBeaconInfo
     }
 
 }) ();
